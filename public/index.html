@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.event.drag-2.0.js"></script>
+	<script src="../socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="scripts.js"></script>
+	<link rel="stylesheet" href="style.css" />
+
+	<title>Plan Of the Day Prototype</title>
+</head>
+<body>
+    <header id="title">
+    <h1>Plan of the Day</h1>
+    </header>
+    <article id="services">
+        <span class="inputTitle">Service:</span>
+        <label><input type="radio" name="service" value="MICU">MICU</label>
+        <label><input type="radio" name="service" value="SICU">SICU</label>
+        <label><input type="radio" name="service" value="CTICU">CT ICU</label>
+        <label><input type="radio" name="service" value="OneBMTICU">One BMT ICU</label>
+        <label><input type="radio" name="service" value="Cardiology">Cardiology</label>
+    </article>
+
+	<article id="plans">
+        <!-- our canvas will be inserted here-->
+        <h3 class="left">Plan(s)/Goal(s)</h3>
+        <span id="plan1Write">write </span> <span id="plan1Type"> type</span>
+        <div class="planContainer" id="plan1">
+            <textarea class="float" ></textarea>
+        </div>
+    </article>
+
+	<article id="checklist">
+        <h3>Checklist (issue addressed or discussed):</h3>
+        <div id="checkboxes">
+            <div id="left_col">
+                <label><input type="checkbox" id="DVDprophylaxis" />DVD prophylaxis</label>
+            </div>
+            <div id="right_col">
+                <label><input type="checkbox" id="DVDprophylaxis" />Access - Can anthing be removed?</label>
+            </div>
+        </div>
+    </article>
+
+</body>
+
+</html>
