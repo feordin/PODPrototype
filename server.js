@@ -6,18 +6,14 @@
     io.configure(function() {
     io.set('transports', [ 'websocket' ]);
         if (process.env.IISNODE_VERSION) {
-            io.set('resource', '/POD/socket.io');
+            io.set('resource', '/socket.io');
         }
     });
 
 
     io.sockets.on('connection', function (socket) {
         socket.on('drawClick', function (data) {
-            socket.broadcast.emit('draw', {
-                x: data.x,
-                y: data.y,
-                type: data.type
-            });
+            socket.broadcast.emit('draw', data);
         });
     });
 

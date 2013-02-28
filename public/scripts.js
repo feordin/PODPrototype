@@ -1,82 +1,122 @@
 (function () {
-    var App;
-    App = {};
+    var plans = [];
+    var socket;
     /*
     Init 
     */
-    App.init = function () {
-        // Add initial plan canvas
-        App.canvas = addCanvasToPlan($('#plan1'));
+    init = function () {
+        // setup web socket
+        var address = window.location.protocol + '//' + window.location.host;
 
-        App.ctx = App.canvas.getContext("2d");
-        App.ctx.fillStyle = "solid";
-        App.ctx.strokeStyle = "#ECD018";
-        App.ctx.lineWidth = 2;
-        App.ctx.lineCap = "round";
-
-        App.socket = io.connect("http://localhost", { resource: "/POD/socket.io" });
-        App.socket.on("error", function () {
+        var details = {
+            resource: "/socket.io"
+        };
+        socket = io.connect(address, details);
+        socket.on("connect", function () {
+            //alert("Connected!");
+        });
+        socket.on("error", function () {
             alert("Error");
         });
-        App.socket.on('draw', function (data) {
-            return App.draw(data.x, data.y, data.type);
-        });
-
-        App.draw = function (x, y, type) {
-            if (type === "dragstart") {
-                App.ctx.beginPath();
-                return App.ctx.moveTo(x, y);
-            } else if (type === "drag") {
-                App.ctx.lineTo(x, y);
-                return App.ctx.stroke();
-            } else {
-                return App.ctx.closePath();
-            }
-        };
-
-
-        // set up click events to switch between writing and typing
-        $('#plan1Write').click(function () {
-            $('#plan1 textarea').hide();
-        });
-
-        $('#plan1Type').click(function () {
-            $('#plan1 textarea').show();
-            $('#plan1 textarea').focus();
+        socket.on('draw', function (data) {
+            return draw(data.plan, data.x, data.y, data.type);
         });
 
         /*
-        Draw Events
+        Setup Draw Events
         */
-        $('canvas').live('drag dragstart dragend', function (e) {
-            var offset, type, x, y;
-            type = e.handleObj.type;
-            offset = $(this).offset();
-            //e.offsetX = e.layerX - offset.left;
-            //e.offsetY = e.layerY - offset.top;
-            x = e.offsetX;
-            y = e.offsetY;
-            App.draw(x, y, type);
-            App.socket.emit('drawClick', {
-                x: x,
-                y: y,
-                type: type
-            });
-        });
+        $('canvas').live('drag dragstart dragend', onDraw);
 
+        // add first plan textarea/canvas
+        addPlan();
     };
+
+    draw = function (num, x, y, type) {
+        var ctx = plans[num].ctx;
+        if (type === "dragstart") {
+            ctx.beginPath();
+            return ctx.moveTo(x, y);
+        } else if (type === "drag") {
+            ctx.lineTo(x, y);
+            return ctx.stroke();
+        } else {
+            return ctx.closePath();
+        }
+    };
+
+    function onDraw(e) {
+        var id = e.target.parentElement.id;
+        var num = id.substr(id.length - 1);
+        var offset, type, x, y;
+        type = e.handleObj.type;
+        offset = $(this).offset();
+        x = e.offsetX;
+        y = e.offsetY;
+        draw(num, x, y, type);
+        socket.emit('drawClick', {
+            plan: num,
+            x: x,
+            y: y,
+            type: type
+        });
+    }
 
     function addCanvasToPlan(planContainer) {
         var canvas = document.createElement("canvas");
-        var planTextArea = $("#plan1 textarea")[0];
+        var planTextArea = planContainer.children("textarea")[0];
         canvas.width = planTextArea.clientWidth;
         canvas.height = planTextArea.clientHeight;
         planContainer.append(canvas);
+        var c = planContainer.children('canvas');
+
         return canvas;
     }
 
+    function initPlan(num) {
+        var writeId = 'write' + num;
+        var typeId = 'type' + num;
+        $('#plans').append('<span id="' + writeId + '">write </span>');
+        $('#' + writeId).click(write);
+        $('#plans').append('<span id="' + typeId + '"> type</span>');
+        $('#' + typeId).click(type);
+
+        var nd = $('<div class="planContainer" id="plan' + num + '"></div>').appendTo('#plans');
+        nd.append('<textarea class="float"></textarea>');
+
+        return nd;
+    }
+
+    function addPlan() {
+        var num = plans.length;
+        var planContainer = initPlan(num);
+        var plan = {};
+        plan.canvas = addCanvasToPlan(planContainer);
+
+        // setup canvas context
+        plan.ctx = plan.canvas.getContext("2d");
+        plan.ctx.fillStyle = "solid";
+        plan.ctx.strokeStyle = "#ECD018";
+        plan.ctx.lineWidth = 2;
+        plan.ctx.lineCap = "round";
+        plans.push(plan);
+    }
+
+    // click events to switch between writing and typing
+    function write (e) {
+        var id = e.target.id;
+        var num = id.substr(id.length - 1);
+        $('#plan' + num + ' textarea').fadeOut();
+    }
+
+    function type(e) {
+        var id = e.target.id;
+        var num = id.substr(id.length - 1);
+        $('#plan' + num + ' textarea').fadeIn();
+        $('#plan' + num + ' textarea').focus();
+    }
+
     $(window).load(function () {
-        App.init();
+        init();
     });
 
 }).call(this);
