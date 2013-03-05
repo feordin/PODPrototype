@@ -78,15 +78,17 @@
     };
 
     draw = function (num, x, y, type) {
-        var ctx = plans[num].ctx;
-        if (type === "dragstart") {
-            ctx.beginPath();
-            return ctx.moveTo(x, y);
-        } else if (type === "drag") {
-            ctx.lineTo(x, y);
-            return ctx.stroke();
-        } else {
-            return ctx.closePath();
+        if (plans[num] && plans[num].ctx) {
+            var ctx = plans[num].ctx;
+            if (type === "dragstart") {
+                ctx.beginPath();
+                return ctx.moveTo(x, y);
+            } else if (type === "drag") {
+                ctx.lineTo(x, y);
+                return ctx.stroke();
+            } else {
+                return ctx.closePath();
+            }
         }
     };
 

@@ -12,7 +12,7 @@
   , io = require('socket.io').listen(app)
 
     io.configure(function() {
-    io.set('transports', [ 'websocket' ]);
+    io.set('transports', [ 'websocket', 'htmlfile', 'xhr-polling', 'jsonp-polling' ]);
         if (process.env.IISNODE_VERSION) {
             io.set('resource', '/socket.io');
         }
@@ -20,9 +20,6 @@
 
 
     io.sockets.on('connection', function (socket) {
-
-        //initialize new connections to current page state
-        socket.emit('pageState', pageData);
 
         // when a user draws something
         // broadcast to all users
@@ -47,6 +44,9 @@
         socket.on('readyForImages', function (data) {
             socket.emit('initImages', imageData);
         });
+
+        //initialize new connections to current page state
+        socket.emit('pageState', pageData);
     });
 
     // start the http server listening on custom port
