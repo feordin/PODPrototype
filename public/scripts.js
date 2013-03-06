@@ -59,6 +59,10 @@
         */
         $('canvas').live('drag dragstart dragend', onDraw);
 
+        if ('ontouchstart' in document.documentElement) {
+            $('canvas').live('touchstart touchmove touchend', onDraw);
+        }
+
         // setup form elements events
         $('textarea').live('keyup', onKeyUp);
         $('input[type=checkbox]').live('change', function (e) {
@@ -80,10 +84,10 @@
     draw = function (num, x, y, type) {
         if (plans[num] && plans[num].ctx) {
             var ctx = plans[num].ctx;
-            if (type === "dragstart") {
+            if ((type === "dragstart") || (type === "touchstart")) {
                 ctx.beginPath();
                 return ctx.moveTo(x, y);
-            } else if (type === "drag") {
+            } else if ((type === "drag") || (type === "touchmove")) {
                 ctx.lineTo(x, y);
                 return ctx.stroke();
             } else {
