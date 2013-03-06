@@ -1,59 +1,18 @@
-<!DOCTYPE HTML>
-<html>
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta charset="UTF-8">
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-	<script type="text/javascript" src="../js/jquery.event.drag-2.0.js"></script>
-	<script src="../socket.io/socket.io.js"></script>
-	<script type="text/javascript" src="scripts.js"></script>
-	<link rel="stylesheet" href="style.css" />
-
-	<title>Plan Of the Day Prototype</title>
+    <title></title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script src="../socket.io/socket.io.js"></script>
+    <script src="queryString.js"></script>
+    <script src="indexScripts.js"></script>
 </head>
 <body>
-    <header id="title">
-    <h1>Plan of the Day</h1>
-    </header>
-    <article id="services">
-        <span class="inputTitle">Service:</span>
-        <label><input type="radio" name="service" value="MICU">MICU</label>
-        <label><input type="radio" name="service" value="SICU">SICU</label>
-        <label><input type="radio" name="service" value="CTICU">CT ICU</label>
-        <label><input type="radio" name="service" value="OneBMTICU">One BMT ICU</label>
-        <label><input type="radio" name="service" value="Cardiology">Cardiology</label>
-    </article>
-
-	<div id="plans">
-        <!-- our canvas will be inserted here-->
-        <h3 class="left">Plan(s)/Goal(s)</h3>
-    </div>
-    <input type="button" id="btnAddPlan" value="+" />
-
-	<article id="checklist">
-        <h3>Checklist (issue addressed or discussed):</h3>
-        <div id="checkboxes">
-            <div id="left_col">
-                <label><input type="checkbox" id="DVDprophylaxis" />DVD prophylaxis</label>
-				<label><input type="checkbox" id="GIprophylaxis" />GI prophylaxis (start or stop)</label
-				<label><input type="checkbox" id="GlocoseControl" />Glocose Control</label>
-				<label><input type="checkbox" id="CodeStatus" />Code Status</label>
-				<label><input type="checkbox" id="Communication" />Communication</label>
-				&emsp;&emsp;<label><input type="checkbox" id="Family" />Family</label>
-				&emsp;&emsp;<label><input type="checkbox" id="PrimaryTeam/PCP" />Primary Team/PCP</label>
-				<h5>For Onc BMT ICU:</h5>
-				<label><input type="checkbox" id="ChemoPlans" />Chemo Plans</label>
-				<label><input type="checkbox" id="ImmuneSupression" />Immune Supression</label>
-            </div>
-            <div id="right_col">
-                <label><input type="checkbox" id="Access" />Access - Can anthing be removed?</label>
-				<label><input type="checkbox" id="Foley" />Foley - Can it come out?</label>
-				<label><input type="checkbox" id="Labs" />Labs - Can any be stopped?</label>
-				<label><input type="checkbox" id="Cultures" />Cultures - Any new? Change Abx?</label>
-				<label><input type="checkbox" id="SAT/SBT" />SAT/SBT</label>
-            </div>
-        </div>
-    </article>
+    <h1>Existing 'Plan of the Day' pages:</h1>
+    <div id="plans"></div>
+    <h1>Create new Plan</h1>
+    <label>Patient Name: <input id="txtPatientName" type="text" /></label>
+    <input id="btnCreatePlan" type="button" value="create"/>
 
 </body>
-
 </html>

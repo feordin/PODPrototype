@@ -10,6 +10,10 @@ header, h3 {
 .left {
     text-align: left;
 }
+
+ul {
+    list-style-type:none;
+}
 	
 .planContainer {
 	background: #fff;
@@ -17,7 +21,7 @@ header, h3 {
 	display: block;
     width: 100%;
     box-sizing: border-box;
-    height: 50px;
+    height: 100px;
     position: relative;
 }
 
@@ -38,6 +42,7 @@ canvas{
     max-height: 200%;
     background-color: transparent;
     z-index: 2;
+    font-size:x-large;
 }
 
 .inputTitle {

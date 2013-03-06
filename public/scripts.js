@@ -2,12 +2,21 @@
     var plans = [];
     var socket;
 
+    var date = getQueryVariable("date");
+    var patient = getQueryVariable("patient");
+
     var pageData = {
         checkboxes: {},
         textAreas: {},
         serviceRadio : "",
-        numOfPlans : 1
+        numOfPlans: 1,
+        date: date,
+        patient: patient,
+        planName: date + patient
     }
+
+
+
     /*
     Init 
     */
@@ -21,6 +30,13 @@
         socket = io.connect(address, details);
         socket.on("connect", function () {
             //alert("Connected!");
+            
+            pData = {
+                date: date,
+                patient: patient,
+                planName: date + patient
+            }
+            socket.emit('plan', pData);
         });
         socket.on("error", function () {
             alert("Error");
@@ -36,13 +52,11 @@
             for (var id in pageData.checkboxes) {
                 $('#' + id)[0].checked = (pageData.checkboxes[id]);
             }
-            for (var textId in pageData.textAreas) {
-                $('#' + textId)[0].value = pageData.textAreas[textId];
-            }
+            
             $('[name=service]').prop('checked', false);
             $('[name=service][value="' + pageData.serviceRadio + '"]').prop('checked', true);
 
-            socket.emit('readyForImages', {});
+            socket.emit('readyForImages', {planName: pageData.planName});
             
         });
 
@@ -51,6 +65,13 @@
                 var newImage = new Image();
                 newImage.src = data[image];
                 plans[image].ctx.drawImage(newImage, 0, 0);
+            }
+
+
+            // update text boxes after images because that seems to cause the 
+            // images to be painted properly
+            for (var textId in pageData.textAreas) {
+                $('#' + textId)[0].value = pageData.textAreas[textId];
             }
         });
 
@@ -114,6 +135,7 @@
             y = e.offsetY;
             draw(num, x, y, type);
             socket.emit('drawClick', {
+                planName: pageData.planName,
                 plan: num,
                 x: x,
                 y: y,
@@ -121,7 +143,7 @@
             });
             if (type == 'dragend') {
                 var imageData = e.target.toDataURL();
-                socket.emit('imageData', { num: num, imageData: imageData });
+                socket.emit('imageData', { num: num, imageData: imageData, planName: pageData.planName, date: pageData.date, patient: pageData.patient });
             }
         }
     }
