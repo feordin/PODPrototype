@@ -72,9 +72,10 @@ canvas{
 }
 label{
 	font-size: 20px;
+	margin-left: 10px;
+	margin-top: 5px;
 }
 li{
-	
 	margin-bottom: 10px;
 }
 
@@ -83,14 +84,28 @@ input[type=checkbox], input[type=radio]{
 	height:40px;
 }
 
+#disposition{
+	border: solid black;
+	float: left;
+}
+#patientInfo{
+	float: right;
+}
 
-#left_col {
+.underline{
+	text-decoration:underline
+}
+
+#left_col, .left_col{
    float:left;
    width:50%;
 }
-#right_col {
+#right_col, .right_col {
    float:right;
    width:50%;
+}
+.top{
+	height: 175px;
 }
 .tabbed{
 	margin-left: 30px;
