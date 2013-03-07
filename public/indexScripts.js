@@ -14,13 +14,13 @@
     init = function () {
         // setup web socket
         var address = window.location.protocol + '//' + window.location.host;
-
         var details = {
-            resource: "/socket.io"
+            resource: "socket.io"
         };
 
         // initialize handler for create button
         $("#btnCreatePlan").click(function (e) {
+            e.target.disabled = true;
             var patient = $("#txtPatientName").val();
             if (!patient || patient.length < 1) {
                 patient = "John Doe";
@@ -46,6 +46,12 @@
                 $("#plans").append("<h3>" + data[day].date + "</h3><ul id='" + data[day].date + "'></ul>");
                 addDay(data[day]);
             }
+        });
+
+        socket.on('created', function (data) {
+            $("#btnCreatePlan")[0].disabled = false;
+            var uri = encodeURI("plan.html?date=" + data.date + "&patient=" + data.patient);
+            window.location.href = uri;
         });
     }
 

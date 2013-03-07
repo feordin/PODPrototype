@@ -86,10 +86,9 @@
                     },
                     imageData: {}
                 };
-                fs.writeFile('./SavedPODs/' + data.date + '/' + data.patient, JSON.stringify(plan), function (err) {
-                    console.log(err);
-                });
+                fs.writeFileSync('./SavedPODs/' + data.date + '/' + data.patient, JSON.stringify(plan));
             }
+            socket.emit('created', { date: data.date, patient: data.patient });
         });
 
         // when a plan page comes online

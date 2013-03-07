@@ -3,7 +3,7 @@ body {
     font-family: sans-serif;
 }
 
-header, h3 {
+h3 {
     text-align: center;
 }
 
@@ -48,6 +48,22 @@ canvas{
 .inputTitle {
     font-weight: bold;
     font-size: large;
+}
+
+.inline {
+    display: inline;
+}
+
+.pageTitle {
+    
+}
+
+.patientName {
+    float:right;
+}
+
+.titleContainer {
+    text-align :center;
 }
 
 #checkboxes {

@@ -25,7 +25,7 @@
         var address = window.location.protocol + '//' + window.location.host;
 
         var details = {
-            resource: "/socket.io"
+            resource: "socket.io"
         };
         socket = io.connect(address, details);
         socket.on("connect", function () {
@@ -98,6 +98,8 @@
             addPlan();
         });
 
+        $('#txtPatientName').append("Patient Name: " + patient);
+
         // add first plan textarea/canvas
         addPlan();
     };
@@ -125,14 +127,25 @@
     }
 
     function onDraw(e) {
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
         var id = e.target.parentElement.id;
         if (id) {
             var num = id.substr(id.length - 1);
             var offset, type, x, y;
-            type = e.handleObj.type;
+            type = e.type;
             offset = $(this).offset();
-            x = e.offsetX;
-            y = e.offsetY;
+            if ((type == 'touchstart') || (type == 'touchmove') || (type == 'touchend')) {
+                console.log("Using touch coordinates.");
+                console.log("Target clientLeft : " + e.target.clientLeft);
+                x = e.pageX - e.target.clientLeft;
+                y = e.pageY - e.target.clientTop;
+            }
+            else {
+                x = e.offsetX;
+                y = e.offsetY;
+            }
             draw(num, x, y, type);
             socket.emit('drawClick', {
                 planName: pageData.planName,
@@ -141,7 +154,7 @@
                 y: y,
                 type: type
             });
-            if (type == 'dragend') {
+            if ((type == 'dragend') || (type == 'touchend')) {
                 var imageData = e.target.toDataURL();
                 socket.emit('imageData', { num: num, imageData: imageData, planName: pageData.planName, date: pageData.date, patient: pageData.patient });
             }
@@ -169,7 +182,7 @@
         $('#' + typeId).click(type);
 
         var nd = $('<div class="planContainer" id="plan' + num + '"></div>').appendTo('#plans');
-        nd.append('<textarea class="float" id="textarea' + num + '"></textarea>');
+        nd.append('<textarea onclick = "void(0)" class="float" id="textarea' + num + '"></textarea>');
 
         return nd;
     }

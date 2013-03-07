@@ -13,7 +13,10 @@
 </head>
 <body>
     <header id="title">
-    <h1>Plan of the Day</h1>
+        <div class="titleContainer">
+        <h1 class="inline pageTitle">Plan of the Day</h1>
+        <h1 class="inline patientName" id="txtPatientName"></h1>
+        </div>
     </header>
     <article id="services">
         <span class="inputTitle">Service:</span>
@@ -41,7 +44,7 @@
 				<li><label><input type="checkbox" id="CodeStatus" />Code Status</label></li>
 				<li><label><input type="checkbox" id="Communication" />Communication</label></li>
 				<li><label><input type="checkbox" id="Family" />Family</label></li>
-				<li><label><input type="checkbox" id="PrimaryTeam/PCP" />Primary Team/PCP</label></li>
+				<li><label><input type="checkbox" id="PrimaryTeamPCP" />Primary Team/PCP</label></li>
                 </ul>
 				<h5>For Onc BMT ICU:</h5>
 				<label><input type="checkbox" id="ChemoPlans" />Chemo Plans</label>
@@ -53,7 +56,7 @@
 				<li><label><input type="checkbox" id="Foley" />Foley - Can it come out?</label></li>
 				<li><label><input type="checkbox" id="Labs" />Labs - Can any be stopped?</label></li>
 				<li><label><input type="checkbox" id="Cultures" />Cultures - Any new? Change Abx?</label></li>
-				<li><label><input type="checkbox" id="SAT/SBT" />SAT/SBT</label></li>
+				<li><label><input type="checkbox" id="SATSBT" />SAT/SBT</label></li>
                 </ul>
             </div>
         </div>
