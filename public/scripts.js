@@ -126,6 +126,7 @@
         socket.emit('pageState', pageData);
     }
 
+
     function onDraw(e) {
         if (e.preventDefault) {
             e.preventDefault();
@@ -137,10 +138,8 @@
             type = e.type;
             offset = $(this).offset();
             if ((type == 'touchstart') || (type == 'touchmove') || (type == 'touchend')) {
-                console.log("Using touch coordinates.");
-                console.log("Target clientLeft : " + e.target.clientLeft);
-                x = e.pageX - e.target.clientLeft;
-                y = e.pageY - e.target.clientTop;
+                x = e.pageX - offset.left;
+                y = e.pageY - offset.top;
             }
             else {
                 x = e.offsetX;
