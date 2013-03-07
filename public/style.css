@@ -54,6 +54,20 @@ canvas{
    width:100%;
    margin:0 auto;
 }
+label{
+	font-size: 20px;
+}
+li{
+	
+	margin-bottom: 10px;
+}
+
+input[type=checkbox], input[type=radio]{
+	width:40px;
+	height:40px;
+}
+
+
 #left_col {
    float:left;
    width:50%;
@@ -61,4 +75,7 @@ canvas{
 #right_col {
    float:right;
    width:50%;
+}
+.tabbed{
+	margin-left: 30px;
 }
