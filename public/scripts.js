@@ -71,7 +71,7 @@
             // update text boxes after images because that seems to cause the 
             // images to be painted properly
             for (var textId in pageData.textAreas) {
-                $('#' + textId)[0].value = pageData.textAreas[textId];
+                $('#' + textId)[0].value = pageData.textAreas[textId].text;
             }
         });
 
@@ -98,6 +98,26 @@
             addPlan();
         });
 
+        $('#btnAddHemoDynamics').click(function (e) {
+            addPlan("Hemodynamics");
+        });
+
+        $('#btnFluids').click(function (e) {
+            addPlan("Fluids");
+        });
+
+        $('#btnNutrition').click(function (e) {
+            addPlan("Nutrition");
+        });
+
+        $('#btnMobility').click(function (e) {
+            addPlan("Mobility / Pressure Ulcer Minimization");
+        });
+
+        $('#btnAnalgesia').click(function (e) {
+            addPlan("Analgesia / Sedation");
+        });
+
         $('#txtPatientName').append("Patient Name: " + patient);
 
         // add first plan textarea/canvas
@@ -122,7 +142,10 @@
     function onKeyUp(e) {
         var id = e.target.id;
         var num = id.substr(id.length - 1);
-        pageData.textAreas[id] = e.target.value;
+        if (!pageData.textAreas[id]) {
+            pageData.textAreas[id] = {label:null, text:""};
+        }
+        pageData.textAreas[id].text = e.target.value;
         socket.emit('pageState', pageData);
     }
 
@@ -172,23 +195,50 @@
         return canvas;
     }
 
-    function initPlan(num) {
+    function initPlan(num, label) {
         var writeId = 'write' + num;
         var typeId = 'type' + num;
-        $('#plans').append('<span id="' + writeId + '">write </span>');
-        $('#' + writeId).click(write);
-        $('#plans').append('<span id="' + typeId + '"> type</span>');
-        $('#' + typeId).click(type);
+        var textId = 'textarea' + num;
+        
+        var nd = {};
+        var divHTML = '<div class="planContainer" id="plan' + num + '"></div>';
 
-        var nd = $('<div class="planContainer" id="plan' + num + '"></div>').appendTo('#plans');
-        nd.append('<textarea onclick = "void(0)" class="float" id="textarea' + num + '"></textarea>');
+        // pageData already has the object, then this is not a new text area
+        if (pageData.textAreas[textId]) {
+            // if it is not new, and has a label, add it
+            if (pageData.textAreas[textId].label) {
+                nd = $('<br><span id="label' + num + '" class="planLabel">' + pageData.textAreas[textId].label + '</span>').appendTo('#plans');
+            }
+        }
+            // this is a newly added textArea
+        else {
+            // this is new with a label
+            if (label) {
+                pageData.textAreas[textId] = { label: label, text: "" };
+                nd = $('<br><span id="label' + num + '" class="planLabel">' + label + '</span>').appendTo('#plans');
+            }
+                // this is new without a label
+            else {
+                pageData.textAreas[textId] = { label: null, text: "" };
+            }
+        }
+        
+        $('#plans').append('<label><input type="radio" name="writetype' + num + '" id="' + writeId + '" class="writeTypeRadio" />write </label>');
+        $('#' + writeId).click(write);
+        $('#plans').append('<label><input type="radio" name="writetype' + num + '" id="' + typeId + '" class="writeTypeRadio" /> type</label>');
+        $('#' + typeId).click(type);
+        
+        nd = $(divHTML).appendTo('#plans');
+        var textAreaHTML = '<textarea onclick = "void(0)" class="float" id="textarea' + num + '"></textarea>';
+        nd.append(textAreaHTML);
+
 
         return nd;
     }
 
-    function addPlan() {
+    function addPlan(label) {
         var num = plans.length;
-        var planContainer = initPlan(num);
+        var planContainer = initPlan(num, label);
         var plan = {};
         plan.canvas = addCanvasToPlan(planContainer, num);
 

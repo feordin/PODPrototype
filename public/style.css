@@ -79,10 +79,19 @@ li{
 }
 
 input[type=checkbox], input[type=radio]{
-	width:40px;
-	height:40px;
+	width:30px;
+	height:30px;
 }
 
+.writeTypeRadio {
+    width:auto;
+	height:auto;
+}
+
+.planLabel {
+    font-size:larger;
+    font-weight:bold;
+}
 
 #left_col {
    float:left;
