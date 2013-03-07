@@ -118,7 +118,11 @@
             addPlan("Analgesia / Sedation");
         });
 
-        $('#txtPatientName').append("Patient Name: " + patient);
+        $('#patientName').val(patient);
+        $('#patientName')[0].disabled = true;
+
+        $('#date').val(date);
+        $('#date')[0].disabled = true;
 
         // add first plan textarea/canvas
         addPlan();
