@@ -126,6 +126,14 @@
 
         // add first plan textarea/canvas
         addPlan();
+
+        //cbcontainer = document.getElementById("plan100");
+        //cbcanvas = document.getElementById("canvas100");
+        //cbcanvas.height = cbcontainer.clientHeight;
+        //cbcanvas.width = cbcontainer.clientWidth;
+        //cbcanvas.style.position = 'absolute';
+        //cbcanvas.style.top = cbcontainer.clientTop;
+        //cbcanvas.style.left = cbcontainer.clientLeft;
     };
 
     draw = function (num, x, y, type) {
@@ -160,7 +168,7 @@
         }
         var id = e.target.parentElement.id;
         if (id) {
-            var num = id.substr(id.length - 1);
+            var num = id.substr(4);
             var offset, type, x, y;
             type = e.type;
             offset = $(this).offset();

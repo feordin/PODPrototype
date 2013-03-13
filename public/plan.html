@@ -56,33 +56,36 @@
     <input type="button" id="btnAnalgesia" value="+ Analgesia / Sedation" />
 	<article id="checklist">
         <h2>Checklist (issue addressed or discussed):</h2>
+        <div id="plan100">
         <div id="checkboxes">
-            <div id="left_col">
+            <div id="left_col" style="position:relative">
                 <ul>
-                <li><label><input type="checkbox" id="DVDprophylaxis" />DVD prophylaxis</label></li>
-				<li><label><input type="checkbox" id="GIprophylaxis" />GI prophylaxis (start or stop)</label></li>
-				<li><label><input type="checkbox" id="GlocoseControl" />Glocose Control</label></li>
-				<li><label><input type="checkbox" id="CodeStatus" />Code Status</label></li>
-				<li><label><input type="checkbox" id="Communication" />Communication</label></li>
-				<li><label><input type="checkbox" id="Family" class="tabbed" />Family</label></li>
-				<li><label><input type="checkbox" id="PrimaryTeamPCP" class="tabbed" />Primary Team/PCP</label></li>
+                <li><input type="checkbox" id="DVDprophylaxis" /><label>DVD prophylaxis</label></li>
+				<li><input type="checkbox" id="GIprophylaxis" /><label>GI prophylaxis (start or stop)</label></li>
+				<li><input type="checkbox" id="GlocoseControl" /><label>Glocose Control</label></li>
+				<li><input type="checkbox" id="CodeStatus" /><label>Code Status</label></li>
+				<li><input type="checkbox" id="Communication" /><label>Communication</label></li>
+				<li><input type="checkbox" id="Family" class="tabbed" /><label>Family</label></li>
+				<li><input type="checkbox" id="PrimaryTeamPCP" class="tabbed" /><label>Primary Team/PCP</label></li>
                 </ul>
 				<h5>For Onc BMT ICU:</h5>
-				<label><input type="checkbox" id="ChemoPlans" />Chemo Plans</label>
-				<label><input type="checkbox" id="ImmuneSupression" />Immune Supression</label>
+				<input type="checkbox" id="ChemoPlans" /><label>Chemo Plans</label>
+				<input type="checkbox" id="ImmuneSupression" /><label>Immune Supression</label>
             </div>
             <div id="right_col">
                 <ul>
-                <li><label><input type="checkbox" id="Access" />Access - Can anthing be removed?</label></li>
-				<li><label><input type="checkbox" id="Foley" />Foley - Can it come out?</label></li>
-				<li><label><input type="checkbox" id="Labs" />Labs - Can any be stopped?</label></li>
-				<li><label><input type="checkbox" id="Cultures" />Cultures - Any new? Change Abx?</label></li>
-				<li><label><input type="checkbox" id="SATSBT" />SAT/SBT</label></li>
+                <li><input type="checkbox" id="Access" /><label>Access - Can anthing be removed?</label></li>
+				<li><input type="checkbox" id="Foley" /><label>Foley - Can it come out?</label></li>
+				<li><input type="checkbox" id="Labs" /><label>Labs - Can any be stopped?</label></li>
+				<li><input type="checkbox" id="Cultures" /><label>Cultures - Any new? Change Abx?</label></li>
+				<li><input type="checkbox" id="SATSBT" /><label>SAT/SBT</label></li>
                 </ul>
 				<label>Consults/Studies Today: </br><input type="text" id="Consults" /></label> <!--Add the writing field-->
             </div>
         </div>
-    </article>
+
+        
+            </div>  </article>
 
 </body>
 

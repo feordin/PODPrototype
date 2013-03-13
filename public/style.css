@@ -29,6 +29,7 @@ canvas{
     z-index: 2;
     top: -3px;
     left:  -3px;
+    
 }
 
 .float{
@@ -82,6 +83,7 @@ li{
 input[type=checkbox], input[type=radio]{
 	width:30px;
 	height:30px;
+    z-index:3;
 }
 
 .writeTypeRadio {

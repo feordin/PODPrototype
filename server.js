@@ -27,13 +27,12 @@
 
                 var dateString = getDate();
                 var todayFound = false;
+                var days = [];
 
                 // for each directioy under SavedPODs
                 // each directory should represent a day
                 for (var index in files) {
 
-                    
-                    var days = [];
                     console.log(files[index]);
 
                     // get stats to find our if it's a 
