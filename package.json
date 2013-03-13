@@ -1,7 +1,8 @@
 ﻿{
-	"name": "podprototype",
+    "name": "podprototype",
     "version": "1.0.0",
+	"author": "feordin <feordin@hotmail.com>",
     "dependencies": {
-		"socket.io": "*"
+	    "socket.io": "*"
     }
 }
