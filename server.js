@@ -20,6 +20,10 @@
             // get a list of the saved plans of the day
             // and send those back
 
+            if (!fs.existsSync('./SavedPODs')) {
+                fs.mkdirSync('./SavedPODs');
+            }
+
             
             fs.readdir('./SavedPODs', function (err, files) {
                 if (err)
