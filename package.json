@@ -5,8 +5,7 @@
     "dependencies": {
 	    "socket.io": "*"
     }
-	"engines": {
+	"engine": {
         "node": "0.8.x"
 		}
-
 }
