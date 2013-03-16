@@ -2,10 +2,10 @@
     "name": "podprototype",
     "version": "1.0.0",
 	"author": "feordin <feordin@hotmail.com>",
+	"engines": {
+        "node": "0.8.x"
+		},
     "dependencies": {
 	    "socket.io": "*"
     }
-	"engine": {
-        "node": "0.8.x"
-		}
 }
