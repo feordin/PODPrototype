@@ -7,12 +7,11 @@
     var fs = require('fs');
 
     io.configure(function() {
-    io.set('transports', [ 'websocket', 'htmlfile', 'xhr-polling', 'jsonp-polling' ]);
+        io.set('transports', [ 'websocket', 'htmlfile', 'xhr-polling', 'jsonp-polling' ]);
         if (process.env.IISNODE_VERSION) {
             io.set('resource', '/socket.io');
         }
     });
-
 
     io.sockets.on('connection', function (socket) {
 
@@ -173,7 +172,6 @@
     // start the http server listening on custom port
     // provided by iisnode
     app.listen(process.env.PORT);
-
 
     function getDate() {
         var d = new Date();
