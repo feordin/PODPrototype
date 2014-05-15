@@ -7,7 +7,7 @@
     var fs = require('fs');
 
     io.configure(function() {
-        io.set('transports', [ 'websocket', 'htmlfile', 'xhr-polling', 'jsonp-polling' ]);
+        io.set('transports', [ 'websocket' ]);
         if (process.env.IISNODE_VERSION) {
             io.set('resource', '/socket.io');
         }
